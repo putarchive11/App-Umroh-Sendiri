@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const svg = (children) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -14,6 +14,8 @@ export const Icon = {
   user: svg(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></>),
   back: svg(<path d="M15 18l-6-6 6-6" />),
   chev: svg(<path d="M9 18l6-6-6-6" />),
+  play: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" /></svg>,
+  pause: <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1" /><rect x="14" y="5" width="4" height="14" rx="1" /></svg>,
   trash: svg(<><path d="M3 6h18" /><path d="M8 6V4h8v2" /><path d="M19 6l-1 14H6L5 6" /></>),
   kaaba: svg(<><path d="M4 8l8-4 8 4v12H4z" /><path d="M4 11h16" /></>),
 };
@@ -80,11 +82,100 @@ export function Arab({ children, size = "", align = "" }) {
   );
 }
 
-// Blok doa lengkap: Arab + latin + arti + sumber
+// ── Pemutar audio doa ─────────────────────────────────────────
+// Hanya satu audio yang berbunyi dalam satu waktu. `src` boleh berupa
+// satu URL atau daftar URL (diputar berurutan, mis. ayat per ayat).
+let stopCurrent = null;
+const fmt = (s) => (isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}` : "0:00");
+
+export function AudioPlayer({ audio }) {
+  const list = Array.isArray(audio.src) ? audio.src : [audio.src];
+  const ref = useRef(null);
+  const [idx, setIdx] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [t, setT] = useState({ cur: 0, dur: 0 });
+
+  const stop = () => {
+    const a = ref.current;
+    if (a) a.pause();
+    setPlaying(false);
+  };
+
+  useEffect(() => () => { if (stopCurrent === stop) stopCurrent = null; ref.current && ref.current.pause(); }, []);
+
+  // Pindah ke file berikutnya dalam daftar → langsung putar
+  const advancing = useRef(false);
+  useEffect(() => {
+    if (!advancing.current) return;
+    advancing.current = false;
+    ref.current && ref.current.play().catch(() => { setError(true); setPlaying(false); });
+  }, [idx]);
+
+  const toggle = () => {
+    const a = ref.current;
+    if (!a) return;
+    if (playing) { stop(); return; }
+    if (stopCurrent && stopCurrent !== stop) stopCurrent();
+    stopCurrent = stop;
+    setError(false);
+    setLoading(true);
+    a.play().then(() => setPlaying(true)).catch(() => { setError(true); setPlaying(false); }).finally(() => setLoading(false));
+  };
+
+  const onEnded = () => {
+    if (idx < list.length - 1) {
+      advancing.current = true;
+      setIdx(idx + 1);
+    } else {
+      setPlaying(false);
+      setIdx(0);
+      setT({ cur: 0, dur: t.dur });
+    }
+  };
+
+  const seek = (e) => {
+    const a = ref.current;
+    if (!a || !a.duration) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    a.currentTime = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * a.duration;
+  };
+
+  const pct = t.dur ? (t.cur / t.dur) * 100 : 0;
+  return (
+    <div className="audio">
+      <audio
+        ref={ref}
+        src={list[idx]}
+        preload="none"
+        onTimeUpdate={(e) => setT({ cur: e.currentTarget.currentTime, dur: e.currentTarget.duration || 0 })}
+        onLoadedMetadata={(e) => setT({ cur: 0, dur: e.currentTarget.duration || 0 })}
+        onWaiting={() => setLoading(true)}
+        onPlaying={() => setLoading(false)}
+        onEnded={onEnded}
+        onError={() => { setError(true); setPlaying(false); setLoading(false); }}
+      />
+      <button className="audio-btn" onClick={toggle} aria-label={playing ? "Jeda audio" : "Putar audio"}>
+        {loading ? <span className="spin" /> : playing ? Icon.pause : Icon.play}
+      </button>
+      <div className="audio-body">
+        <div className="audio-bar" onClick={seek}><div style={{ width: `${pct}%` }} /></div>
+        <div className="audio-meta">
+          <span>{error ? "Audio gagal dimuat — cek koneksi" : audio.label}</span>
+          <span>{list.length > 1 ? `${idx + 1}/${list.length} · ` : ""}{fmt(t.cur)}{t.dur ? ` / ${fmt(t.dur)}` : ""}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Blok doa lengkap: Arab + audio + latin + arti + sumber
 export function Doa({ d, size, boxed = true }) {
   const body = (
     <>
       <Arab size={size}>{d.doa}</Arab>
+      {d.audio && <AudioPlayer audio={d.audio} />}
       {d.latin && <div className="latin">{d.latin}</div>}
       {d.arti && <div className="arti">“{d.arti}”</div>}
       {d.sumber && <div className="sumber">{d.sumber}</div>}

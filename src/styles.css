@@ -167,3 +167,16 @@ a { color: inherit; }
 
 /* ── Banner pasang aplikasi ── */
 .install { position: fixed; left: 50%; transform: translateX(-50%); bottom: 96px; width: calc(100% - 32px); max-width: 448px; z-index: 120; display: flex; align-items: center; gap: 10px; }
+
+/* Pemutar audio doa */
+.audio { display: flex; align-items: center; gap: 10px; margin: 10px 0 4px; padding: 8px 10px; background: var(--card); border: 1px solid var(--card-2); border-radius: 12px; text-align: left; }
+.audio-btn { flex: none; width: 38px; height: 38px; border-radius: 50%; border: none; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; }
+.audio-btn:active { transform: scale(.94); }
+.audio-body { flex: 1; min-width: 0; }
+.audio-bar { height: 6px; border-radius: 3px; background: var(--card-2); overflow: hidden; cursor: pointer; }
+.audio-bar > div { height: 100%; background: var(--accent); transition: width .2s linear; }
+.audio-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 5px; font-size: 10px; color: var(--muted); }
+.audio-meta span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.audio-meta span:last-child { flex: none; font-variant-numeric: tabular-nums; }
+.spin { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
