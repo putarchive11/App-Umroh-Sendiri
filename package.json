@@ -1,0 +1,20 @@
+{
+  "name": "umroh-sendiri",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Umroh Sendiri — panduan umroh mandiri: ibadah, checklist, kalkulator biaya, dan pencatat pengeluaran.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

@@ -1,0 +1,169 @@
+/* Font Arab rasm Utsmani (KFGQPC Uthmanic Script HAFS — khat Utsman Taha),
+   dimuat dari CDN npm agar file font tidak ikut tersimpan di repo. */
+@font-face {
+  font-family: "Utsman Taha";
+  src: url("https://cdn.jsdelivr.net/npm/kfgqpc-uthmanic-script-hafs-regular@1.0.0/arabic.otf") format("opentype");
+  font-display: swap;
+}
+
+:root {
+  --accent: #8b6914;
+  --accent-2: #a08030;
+  --accent-light: #f5edd6;
+  --bg: #fafaf7;
+  --card: #ffffff;
+  --card-2: #f0ede6;
+  --text: #1a1a1a;
+  --muted: #7a7568;
+  --green: #16a34a;
+  --red: #dc2626;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--bg); }
+body {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width: 0; height: 0; }
+button { font-family: inherit; cursor: pointer; }
+input, textarea, select { font-family: inherit; color: var(--text); font-size: 16px; }
+a { color: inherit; }
+
+.app { max-width: 480px; margin: 0 auto; min-height: 100vh; position: relative; }
+.main { padding-bottom: 96px; min-height: 100vh; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fadeUp .35s ease both; }
+
+/* ── Tipografi ── */
+.serif { font-family: "Playfair Display", serif; }
+.page-head { padding: 24px 16px 16px; }
+.page-head h2 { font-family: "Playfair Display", serif; font-size: 22px; font-weight: 700; }
+.page-head p { font-size: 12px; color: var(--muted); margin-top: 4px; }
+.section-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 8px 0 2px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; line-height: 1.7; }
+.xs { font-size: 11px; }
+.stack { display: flex; flex-direction: column; gap: 10px; }
+.pad { padding: 0 16px 20px; }
+.row { display: flex; align-items: center; gap: 10px; }
+.between { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+/* ── Arab ── */
+.arab {
+  font-family: "Utsman Taha", "Amiri Quran", serif;
+  direction: rtl;
+  unicode-bidi: isolate;
+  text-align: center;
+  color: var(--accent);
+  font-size: 24px;
+  line-height: 2.1;
+}
+.arab.sm { font-size: 20px; }
+.arab.lg { font-size: 30px; }
+.arab.right { text-align: right; }
+.latin { font-size: 12px; font-style: italic; line-height: 1.6; margin-top: 6px; }
+.arti { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 4px; }
+.sumber { font-size: 10px; color: var(--muted); opacity: .75; margin-top: 6px; }
+
+/* ── Kartu ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-2);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+}
+.card.tap { cursor: pointer; transition: transform .15s; }
+.card.tap:active { transform: scale(.97); }
+.card-title { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+.doa-box { background: color-mix(in srgb, var(--accent) 8%, transparent); border-radius: 12px; padding: 14px; text-align: center; margin-top: 10px; }
+.tip { margin-top: 10px; padding: 10px 12px; background: color-mix(in srgb, var(--green) 9%, transparent); border-radius: 10px; font-size: 12px; color: var(--green); line-height: 1.6; }
+.warn { background: #fff8e6; border-color: #f3e2b3; }
+
+.menu-card { display: flex; align-items: center; gap: 14px; padding: 14px; text-decoration: none; color: inherit; }
+.menu-icon { width: 44px; height: 44px; border-radius: 12px; background: color-mix(in srgb, var(--accent) 10%, transparent); display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
+.menu-title { font-size: 14px; font-weight: 600; }
+.menu-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.chev { color: var(--muted); margin-left: auto; }
+
+.badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 20px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); }
+.badge.green { background: color-mix(in srgb, var(--green) 14%, transparent); color: var(--green); }
+
+/* ── Header sub-halaman ── */
+.subheader { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--card-2); }
+.subheader h2 { font-size: 16px; font-weight: 700; flex: 1; }
+.icon-btn { width: 36px; height: 36px; border-radius: 10px; border: none; background: var(--card-2); color: var(--text); display: grid; place-items: center; }
+.sub-body { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+
+/* ── Beranda ── */
+.hero { padding: 32px 20px 24px; background: linear-gradient(180deg, var(--accent-light) 0%, transparent 100%); }
+.logo { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; color: #fff; }
+.hero h1 { font-family: "Playfair Display", serif; font-size: 28px; font-weight: 700; line-height: 1.2; margin-top: 16px; }
+.hero p { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+.quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.quick .card { padding: 14px; border: none; }
+.quick .ic { font-size: 24px; margin-bottom: 6px; }
+.quick .t { font-size: 11px; font-weight: 700; }
+.quick .d { font-size: 9px; color: var(--muted); }
+
+/* ── Navigasi bawah ── */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; padding: 12px 8px calc(8px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, transparent 0%, var(--bg) 25%); z-index: 100; }
+.bottom-nav .bar { display: flex; justify-content: space-around; background: var(--card); border: 1px solid var(--card-2); border-radius: 20px; padding: 8px 4px; box-shadow: 0 -2px 12px rgba(0, 0, 0, .06); }
+.bottom-nav button { background: none; border: none; color: var(--muted); display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 10px; font-size: 10px; font-weight: 500; }
+.bottom-nav button.on { color: var(--accent); font-weight: 700; }
+
+/* ── Form ── */
+.input { width: 100%; background: var(--card-2); border: none; padding: 10px 12px; border-radius: 10px; font-size: 14px; outline: none; }
+.input:focus { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent); }
+.num { width: 120px; text-align: right; font-weight: 600; }
+.field { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--card-2); font-size: 13px; }
+.field:last-child { border-bottom: none; }
+.btn { border: none; border-radius: 12px; padding: 12px 16px; font-weight: 700; font-size: 14px; background: var(--accent); color: #fff; }
+.btn.ghost { background: var(--card-2); color: var(--text); }
+.btn.sm { padding: 8px 12px; font-size: 12px; border-radius: 10px; }
+.btn.block { width: 100%; }
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { border: none; border-radius: 10px; padding: 8px 14px; font-weight: 700; font-size: 13px; background: var(--card-2); color: var(--muted); }
+.chip.on { background: var(--accent); color: #fff; }
+.scroll-x { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
+.scroll-x .chip { white-space: nowrap; }
+
+/* ── Checklist ── */
+.check-row { display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: none; text-align: left; padding: 8px 0; font-size: 13px; color: var(--text); }
+.box { width: 22px; height: 22px; border-radius: 7px; border: 2px solid var(--card-2); display: grid; place-items: center; flex-shrink: 0; font-size: 13px; color: #fff; }
+.box.on { background: var(--green); border-color: var(--green); }
+.done { text-decoration: line-through; color: var(--muted); }
+.progress { height: 8px; background: var(--card-2); border-radius: 8px; overflow: hidden; }
+.progress > div { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 8px; transition: width .3s; }
+
+.big-num { font-size: 32px; font-weight: 800; color: var(--accent); }
+.list-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--card-2); }
+.list-row:last-child { border-bottom: none; }
+.empty { text-align: center; padding: 32px 16px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+.empty .e { font-size: 36px; margin-bottom: 8px; }
+
+/* ── Ebook kosong ── */
+.coming { text-align: center; padding: 56px 24px; }
+.coming .e { font-size: 56px; }
+.coming h3 { font-family: "Playfair Display", serif; font-size: 20px; margin-top: 12px; }
+.coming p { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+
+/* ── Kompas kiblat ── */
+.compass { width: 240px; height: 240px; border-radius: 50%; margin: 10px auto; position: relative; background: radial-gradient(circle, var(--card) 55%, var(--accent-light) 100%); border: 3px solid var(--card-2); }
+.compass .dir { position: absolute; font-weight: 800; font-size: 13px; color: var(--muted); }
+.compass .needle { position: absolute; left: 50%; top: 50%; width: 4px; height: 100px; margin-left: -2px; margin-top: -100px; transform-origin: 50% 100%; background: linear-gradient(var(--accent), transparent); border-radius: 4px; transition: transform .3s; }
+.compass .kaaba { position: absolute; left: 50%; top: -6px; transform: translateX(-50%); font-size: 24px; }
+
+/* ── Produk ── */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.product { display: flex; flex-direction: column; gap: 8px; }
+.product .ic { font-size: 28px; }
+.product .n { font-size: 12px; font-weight: 600; line-height: 1.4; flex: 1; }
+.product a { font-size: 11px; font-weight: 700; color: var(--accent); text-decoration: none; }
+
+/* ── Banner pasang aplikasi ── */
+.install { position: fixed; left: 50%; transform: translateX(-50%); bottom: 96px; width: calc(100% - 32px); max-width: 448px; z-index: 120; display: flex; align-items: center; gap: 10px; }
