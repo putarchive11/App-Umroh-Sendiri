@@ -2,7 +2,7 @@
 // Pengaturan yang paling sering diganti — ubah di sini saja.
 // ─────────────────────────────────────────────────────────────
 
-export const APP_NAME = "Umroh Sendiri";
+export const APP_NAME = "Kunci Umroh Sendiri";
 export const APP_BRAND = "PANDUAN UMROH MANDIRI";
 
 // Kurs default 1 SAR ke Rupiah (bisa diubah pengguna di aplikasi)
@@ -16,19 +16,19 @@ const wa = (pesan) => `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(pesan
 
 export const LAYANAN = [
   {
-    icon: "🚐",
+    icon: "ph-van",
     title: "Transportasi Umroh Mandiri",
     desc: "Pesan transport via WhatsApp",
     href: wa("Assalamu’alaikum, saya mau pesan transportasi umroh."),
   },
   {
-    icon: "🧕",
+    icon: "ph-user-check",
     title: "Pesan Muthowif",
     desc: "Booking pendamping ibadah",
     href: wa("Assalamu’alaikum, saya mau booking muthowif."),
   },
   {
-    icon: "📄",
+    icon: "ph-seal-check",
     title: "Pesan Visa Umroh",
     desc: "Urus visa umroh via WhatsApp",
     href: wa("Assalamu’alaikum, saya mau pesan visa umroh."),

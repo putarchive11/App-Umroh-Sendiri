@@ -28,10 +28,16 @@ export function Card({ children, onClick, className = "", style }) {
   );
 }
 
+/** Ikon garis Phosphor. `name` berupa "ph-nama"; teks lain (mis. emoji) ditampilkan apa adanya. */
+export function PhIcon({ name }) {
+  if (typeof name === "string" && name.startsWith("ph-")) return <i className={`ph ${name}`} aria-hidden="true" />;
+  return name;
+}
+
 export function MenuCard({ icon, title, desc, onClick, href }) {
   const inner = (
     <>
-      <div className="menu-icon">{icon}</div>
+      <div className="menu-icon"><PhIcon name={icon} /></div>
       <div style={{ minWidth: 0 }}>
         <div className="menu-title">{title}</div>
         {desc && <div className="menu-desc">{desc}</div>}

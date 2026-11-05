@@ -39,9 +39,9 @@ a { color: inherit; }
 .fade-up { animation: fadeUp .35s ease both; }
 
 /* ── Tipografi ── */
-.serif { font-family: "Playfair Display", serif; }
+.serif { font-family: "Source Serif 4", Georgia, serif; }
 .page-head { padding: 24px 16px 16px; }
-.page-head h2 { font-family: "Playfair Display", serif; font-size: 22px; font-weight: 700; }
+.page-head h2 { font-family: "Source Serif 4", Georgia, serif; font-size: 22px; font-weight: 700; }
 .page-head p { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .section-label { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin: 8px 0 2px; }
 .muted { color: var(--muted); }
@@ -102,7 +102,7 @@ a { color: inherit; }
 /* ── Beranda ── */
 .hero { padding: 32px 20px 24px; background: linear-gradient(180deg, var(--accent-light) 0%, transparent 100%); }
 .logo { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; color: #fff; }
-.hero h1 { font-family: "Playfair Display", serif; font-size: 28px; font-weight: 700; line-height: 1.2; margin-top: 16px; }
+.hero h1 { font-family: "Source Serif 4", Georgia, serif; font-size: 28px; font-weight: 700; line-height: 1.2; margin-top: 16px; }
 .hero p { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
 .quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .quick .card { padding: 14px; border: none; }
@@ -149,7 +149,7 @@ a { color: inherit; }
 /* ── Ebook kosong ── */
 .coming { text-align: center; padding: 56px 24px; }
 .coming .e { font-size: 56px; }
-.coming h3 { font-family: "Playfair Display", serif; font-size: 20px; margin-top: 12px; }
+.coming h3 { font-family: "Source Serif 4", Georgia, serif; font-size: 20px; margin-top: 12px; }
 .coming p { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
 
 /* ── Kompas kiblat ── */
@@ -180,3 +180,22 @@ a { color: inherit; }
 .audio-meta span:last-child { flex: none; font-variant-numeric: tabular-nums; }
 .spin { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== Tampilan baru (selaras landing page): latar islami, ikon garis emas ===== */
+:root { --green: #27483f; --gold-tile-1: #fbf3df; --gold-tile-2: #f1e3bd; --gold-line: rgba(185,146,69,.45); --gold-deep: #8f6b2e; --gold-light: #e7cf98; --card-border: #e8dcc0; }
+html, body { background-color: #fbf8f0; }
+body { background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2244%22%20height%3D%2244%22%20viewBox%3D%220%200%2044%2044%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%23b99245%22%20stroke-width%3D%22.7%22%20opacity%3D%22.32%22%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%2220%22%20height%3D%2220%22/%3E%3Crect%20x%3D%2212%22%20y%3D%2212%22%20width%3D%2220%22%20height%3D%2220%22%20transform%3D%22rotate%2845%2022%2022%29%22/%3E%3Ccircle%20cx%3D%2222%22%20cy%3D%2222%22%20r%3D%224.2%22/%3E%3Cpath%20d%3D%22M0%200l8%208M44%200l-8%208M0%2044l8-8M44%2044l-8-8%22/%3E%3C/g%3E%3C/svg%3E"); background-size: 44px 44px; background-attachment: fixed; }
+.app::before { content: ""; position: fixed; left: 50%; top: 0; transform: translateX(-50%); width: 100%; max-width: 480px; height: 220px; background: linear-gradient(180deg, #f3e7c6 0%, rgba(243,231,198,.7) 55%, rgba(251,248,240,0) 100%); border-radius: 0 0 50% 50% / 0 0 36px 36px; pointer-events: none; z-index: 0; }
+.main { position: relative; z-index: 1; }
+.hero { background: none; }
+.hero h1, .page-head h2 { color: var(--green); }
+.page-head h2 { display: flex; align-items: center; gap: 10px; }
+.head-ico { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--green); color: var(--gold-light); font-size: 18px; }
+.logo-img { width: 34px; height: 34px; object-fit: contain; display: block; }
+.card { background: rgba(255,255,255,.94); border-color: var(--card-border); }
+.menu-icon { background: linear-gradient(145deg, var(--gold-tile-1), var(--gold-tile-2)); box-shadow: inset 0 0 0 1px var(--gold-line); color: var(--gold-deep); font-size: 22px; }
+.quick .card { border: 1px solid var(--card-border); text-align: center; }
+.quick .ic { width: 38px; height: 38px; margin: 0 auto 8px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(145deg, var(--gold-tile-1), var(--gold-tile-2)); box-shadow: inset 0 0 0 1px var(--gold-line); color: var(--gold-deep); font-size: 19px; }
+.coming .e { width: 64px; height: 64px; margin: 0 auto; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(145deg, var(--gold-tile-1), var(--gold-tile-2)); box-shadow: inset 0 0 0 1px var(--gold-line); color: var(--gold-deep); font-size: 30px; }
+.inline-ico { display: inline-grid; place-items: center; color: var(--gold-deep); font-size: 20px; }
+.ph { line-height: 1; }

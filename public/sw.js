@@ -1,5 +1,5 @@
 // Service worker sederhana: cache aset agar aplikasi tetap bisa dibuka saat sinyal lemah.
-const CACHE = "umroh-sendiri-v2";
+const CACHE = "umroh-sendiri-v3";
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(["/", "/index.html", "/manifest.json", "/icon.svg"])));
