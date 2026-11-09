@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { APP_NAME, LAYANAN } from "./config";
 import { CHECKLIST_DOKUMEN, CHECKLIST_BARANG, DOA_TAHALLUL, DOA_ZAMZAM, DOA_KELUAR_MASJID } from "./data";
 import { Card, MenuCard, Badge, Doa, Icon, InstallBanner, PhIcon } from "./ui";
@@ -6,6 +6,8 @@ import { PanduanNiat, PanduanTawaf, PanduanSai } from "./tools/ibadah";
 import { KalkulatorBiaya, KalkulatorNabung, KonversiMataUang, NabungTracker, PengeluaranTracker } from "./tools/keuangan";
 import { ChecklistView, TimelineView, ItineraryPlanner, ArahKiblat, RekomendasiProduk } from "./tools/persiapan";
 import { CatatanPribadi, OlehOlehList } from "./tools/personal";
+import { AktivasiPage, AdminPage } from "./Aktivasi";
+import { bacaAktivasi, cekUlang, hapusAktivasi } from "./aktivasi";
 
 // Daftar semua alat (sub-halaman)
 const SUBS = {
@@ -35,7 +37,31 @@ const TABS = [
   { id: "me", icon: Icon.user, label: "Saya" },
 ];
 
+// ─── Gerbang aktivasi ───
 export default function App() {
+  const [admin, setAdmin] = useState(() => location.hash === "#admin");
+  const [aktivasi, setAktivasi] = useState(bacaAktivasi);
+
+  useEffect(() => {
+    const f = () => setAdmin(location.hash === "#admin");
+    window.addEventListener("hashchange", f);
+    return () => window.removeEventListener("hashchange", f);
+  }, []);
+
+  // Cek ulang diam-diam saat online (mis. kode dicabut karena refund).
+  useEffect(() => {
+    if (!aktivasi) return;
+    cekUlang(aktivasi).then((r) => {
+      if (r === "kunci") { hapusAktivasi(); setAktivasi(null); }
+    });
+  }, [aktivasi?.kode]); // eslint-disable-line
+
+  if (admin) return <AdminPage />;
+  if (!aktivasi) return <AktivasiPage onAktif={setAktivasi} />;
+  return <AppUtama aktivasi={aktivasi} />;
+}
+
+function AppUtama({ aktivasi }) {
   const [tab, setTab] = useState("home");
   const [sub, setSub] = useState(null);
   const go = (s) => setSub(s);
@@ -46,7 +72,7 @@ export default function App() {
   else if (tab === "book") content = <EbookPage />;
   else if (tab === "tools") content = <ToolsPage go={go} />;
   else if (tab === "ibadah") content = <IbadahPage go={go} />;
-  else if (tab === "me") content = <PersonalPage go={go} />;
+  else if (tab === "me") content = <PersonalPage go={go} aktivasi={aktivasi} />;
   else content = <HomePage go={go} />;
 
   return (
@@ -212,7 +238,7 @@ function IbadahPage({ go }) {
 }
 
 // ─── SAYA ───
-function PersonalPage({ go }) {
+function PersonalPage({ go, aktivasi }) {
   return (
     <div className="fade-up">
       <div className="page-head">
@@ -225,6 +251,11 @@ function PersonalPage({ go }) {
         <MenuCard icon="ph-receipt" title="Catatan Pengeluaran" desc="Catat pengeluaran aktual umroh" onClick={() => go("pengeluaran")} />
         <MenuCard icon="ph-gift" title="Daftar Oleh-oleh" desc="Catat oleh-oleh yang ingin dibeli" onClick={() => go("oleholeh")} />
         <p className="xs muted" style={{ textAlign: "center", marginTop: 8 }}>Semua data tersimpan di perangkat ini saja.</p>
+        {aktivasi && (
+          <p className="xs muted" style={{ textAlign: "center" }}>
+            <PhIcon name="ph-seal-check" /> Aktif{aktivasi.nama ? ` atas nama ${aktivasi.nama}` : ""} · {aktivasi.kode}
+          </p>
+        )}
       </div>
     </div>
   );

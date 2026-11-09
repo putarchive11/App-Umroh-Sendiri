@@ -40,3 +40,19 @@ npm run build    # hasil di folder dist/
 ## Font Arab
 
 Teks Arab memakai **KFGQPC Uthmanic Script HAFS** (khat Utsman Taha, mushaf Madinah) yang dimuat dari CDN jsDelivr, dengan cadangan *Amiri Quran* dari Google Fonts. Semua teks Arab ditulis lengkap dengan harokat dan ditampilkan kanan-ke-kiri (`dir="rtl"`).
+
+## Kode aktivasi (lisensi)
+
+Aplikasi terkunci sampai pembeli memasukkan kode aktivasi. Pengecekan kode dilakukan di server (`api/aktivasi.js`), daftar kode disimpan di Upstash Redis dan tidak pernah dikirim ke browser.
+
+- Admin membuat kode di `https://<alamat-aplikasi>/#admin`.
+- Satu kode untuk maksimal 2 perangkat (atur dengan env `MAX_PERANGKAT`).
+- Setelah aktif, aplikasi tetap bisa dibuka offline. Saat online, aplikasi mengecek ulang diam-diam; kode yang dicabut akan mengunci aplikasi.
+
+Variabel lingkungan di Vercel:
+
+| Nama | Isi |
+|---|---|
+| `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Otomatis terisi saat Upstash Redis dihubungkan lewat menu Storage |
+| `ADMIN_PASSWORD` | Kata sandi halaman admin |
+| `MAX_PERANGKAT` | (opsional) batas perangkat per kode, bawaan 2 |

@@ -8,9 +8,11 @@ export const APP_BRAND = "PANDUAN UMROH MANDIRI";
 // Kurs default 1 SAR ke Rupiah (bisa diubah pengguna di aplikasi)
 export const DEFAULT_KURS = 4770; // kurs tengah ±Rp4.766 per 3 Nov 2026
 
-// ⚠️ GANTI dengan nomor WhatsApp admin Anda (format internasional tanpa "+" dan tanpa 0 di depan).
-// Contoh: 081234567890 → "6281234567890"
-export const NOMOR_WA = "6280000000000";
+// Nomor WhatsApp admin (format internasional tanpa "+" dan tanpa 0 di depan).
+export const NOMOR_WA = "6287777995846";
+
+// Batas perangkat per kode (hanya untuk teks di layar; batas sebenarnya diatur di server: MAX_PERANGKAT).
+export const MAKS_PERANGKAT = 2;
 
 const wa = (pesan) => `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(pesan)}`;
 
