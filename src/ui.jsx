@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTema } from "./tema";
 
 const svg = (children) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -227,6 +228,49 @@ export function InstallBanner() {
       </div>
       <button className="btn sm" onClick={async () => { evt.prompt(); await evt.userChoice; setEvt(null); }}>Pasang</button>
       <button className="icon-btn" onClick={close} aria-label="Tutup">×</button>
+    </div>
+  );
+}
+
+// ── Tombol tema terang / gelap ────────────────────────────────
+export function TemaToggle() {
+  const [tema, setTema] = useTema();
+  const gelap = tema !== "light";
+  return (
+    <button
+      type="button"
+      className="tema-btn"
+      onClick={() => setTema(gelap ? "light" : "dark")}
+      aria-label={gelap ? "Ganti ke tampilan terang" : "Ganti ke tampilan gelap"}
+      title={gelap ? "Tampilan terang" : "Tampilan gelap"}
+    >
+      <svg className="ikon-bulan" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" />
+      </svg>
+      <svg className="ikon-matahari" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <circle cx="12" cy="12" r="4" />
+        <path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4" />
+      </svg>
+    </button>
+  );
+}
+
+// Pilihan tema bergambar (halaman Saya)
+export function PilihanTema() {
+  const [tema, setTema] = useTema();
+  const opsi = [
+    { id: "dark", nama: "Kiswah Hitam", cls: "gelap" },
+    { id: "light", nama: "Kiswah Gading", cls: "terang" },
+  ];
+  return (
+    <div className="tema-pilihan" role="radiogroup" aria-label="Tampilan aplikasi">
+      {opsi.map((o) => (
+        <button key={o.id} type="button" role="radio" aria-checked={tema === o.id}
+          className={`tema-opsi ${tema === o.id ? "on" : ""}`} onClick={() => setTema(o.id)}>
+          <div className={`tema-contoh ${o.cls}`} />
+          <span>{o.nama}{tema === o.id && <i className="ph ph-check-circle" aria-hidden="true" />}</span>
+        </button>
+      ))}
     </div>
   );
 }

@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#0A0907" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="color-scheme" content="dark light" />
     <meta name="apple-mobile-web-app-title" content="Umroh Sendiri" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/svg+xml" href="/icon.svg" />
@@ -19,6 +19,16 @@
       rel="stylesheet"
     />
     <title>Umroh Sendiri</title>
+    <script>
+      // Terapkan tema tersimpan sebelum aplikasi tampil (mencegah layar berkedip).
+      (function () {
+        var t = "dark";
+        try { t = localStorage.getItem("umroh_tema") === "light" ? "light" : "dark"; } catch (e) {}
+        document.documentElement.setAttribute("data-theme", t);
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute("content", t === "light" ? "#F6F0E1" : "#0A0907");
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

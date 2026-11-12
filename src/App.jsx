@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { APP_NAME, LAYANAN } from "./config";
 import { CHECKLIST_DOKUMEN, CHECKLIST_BARANG, DOA_TAHALLUL, DOA_ZAMZAM, DOA_KELUAR_MASJID } from "./data";
-import { Card, MenuCard, Badge, Doa, Icon, InstallBanner, PhIcon, Arab } from "./ui";
+import { Card, MenuCard, Badge, Doa, Icon, InstallBanner, PhIcon, Arab, TemaToggle, PilihanTema } from "./ui";
 import { PanduanNiat, PanduanTawaf, PanduanSai } from "./tools/ibadah";
 import { KalkulatorBiaya, KalkulatorNabung, KonversiMataUang, NabungTracker, PengeluaranTracker } from "./tools/keuangan";
 import { ChecklistView, TimelineView, ItineraryPlanner, ArahKiblat, RekomendasiProduk } from "./tools/persiapan";
@@ -115,6 +115,7 @@ function HomePage({ go }) {
             <div className="brand-name">{APP_NAME}</div>
             <div className="brand-sub">Panduan umroh mandiri</div>
           </div>
+          <TemaToggle />
         </div>
         <h1>Panduan Umroh Mandiri</h1>
         <p>Panduan lengkap umrah mandiri dari nol — persiapan, ibadah, checklist, dan kalkulator biaya dalam satu aplikasi.</p>
@@ -257,6 +258,8 @@ function PersonalPage({ go, aktivasi }) {
         <MenuCard icon="ph-chart-line-up" title="Progress Nabung" desc="Tracker tabungan umroh" onClick={() => go("tracker")} />
         <MenuCard icon="ph-receipt" title="Catatan Pengeluaran" desc="Catat pengeluaran aktual umroh" onClick={() => go("pengeluaran")} />
         <MenuCard icon="ph-gift" title="Daftar Oleh-oleh" desc="Catat oleh-oleh yang ingin dibeli" onClick={() => go("oleholeh")} />
+        <div className="section-label">Tampilan</div>
+        <PilihanTema />
         <p className="xs muted" style={{ textAlign: "center", marginTop: 8 }}>Semua data tersimpan di perangkat ini saja.</p>
         {aktivasi && (
           <p className="xs muted" style={{ textAlign: "center" }}>

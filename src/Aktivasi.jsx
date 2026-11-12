@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { APP_NAME, MAKS_PERANGKAT, NOMOR_WA } from "./config";
 import { aktifkan } from "./aktivasi";
-import { PhIcon } from "./ui";
+import { PhIcon, TemaToggle } from "./ui";
 
 const waBeli = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(
   "Assalamu’alaikum, saya ingin membeli akses aplikasi Kunci Umroh Sendiri."
@@ -27,6 +27,7 @@ export function AktivasiPage({ onAktif }) {
   return (
     <div className="app">
       <main className="aktivasi fade-up">
+        <TemaToggle />
         <img className="aktivasi-logo" src="/kabah.png" alt="" width="64" height="64" />
         <div className="aktivasi-merek">{APP_NAME}</div>
         <h1>Aktifkan Aplikasi</h1>
