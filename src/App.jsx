@@ -109,13 +109,13 @@ function HomePage({ go }) {
   return (
     <div className="fade-up">
       <div className="hero">
-        <div className="hero-top"><TemaToggle /></div>
         <div className="brand">
           <img className="logo-img" src="/kabah.png" alt="" width="40" height="40" />
           <div>
             <div className="brand-name">{APP_NAME}</div>
             <div className="brand-sub">Panduan umroh mandiri</div>
           </div>
+          <TemaToggle />
         </div>
         <h1>Panduan Umroh Mandiri</h1>
         <p>Panduan lengkap umrah mandiri dari nol — persiapan, ibadah, checklist, dan kalkulator biaya dalam satu aplikasi.</p>
