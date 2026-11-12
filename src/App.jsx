@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { APP_NAME, LAYANAN } from "./config";
 import { CHECKLIST_DOKUMEN, CHECKLIST_BARANG, DOA_TAHALLUL, DOA_ZAMZAM, DOA_KELUAR_MASJID } from "./data";
-import { Card, MenuCard, Badge, Doa, Icon, InstallBanner, PhIcon } from "./ui";
+import { Card, MenuCard, Badge, Doa, Icon, InstallBanner, PhIcon, Arab } from "./ui";
 import { PanduanNiat, PanduanTawaf, PanduanSai } from "./tools/ibadah";
 import { KalkulatorBiaya, KalkulatorNabung, KonversiMataUang, NabungTracker, PengeluaranTracker } from "./tools/keuangan";
 import { ChecklistView, TimelineView, ItineraryPlanner, ArahKiblat, RekomendasiProduk } from "./tools/persiapan";
@@ -109,14 +109,21 @@ function HomePage({ go }) {
   return (
     <div className="fade-up">
       <div className="hero">
-        <div className="row">
-          <img className="logo-img" src="/kabah.png" alt="" width="34" height="34" />
+        <div className="brand">
+          <img className="logo-img" src="/kabah.png" alt="" width="40" height="40" />
           <div>
-            <div style={{ fontSize: 11, color: "var(--muted)", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600 }}>{APP_NAME}</div>
+            <div className="brand-name">{APP_NAME}</div>
+            <div className="brand-sub">Panduan umroh mandiri</div>
           </div>
         </div>
         <h1>Panduan Umroh Mandiri</h1>
         <p>Panduan lengkap umrah mandiri dari nol — persiapan, ibadah, checklist, dan kalkulator biaya dalam satu aplikasi.</p>
+        <div className="kiswah-band" aria-hidden="true" />
+      </div>
+      <div className="talbiyah" role="button" tabIndex={0} onClick={() => go("niat")} onKeyDown={(e) => e.key === "Enter" && go("niat")}>
+        <Arab size="lg">لَبَّيْكَ اللَّهُمَّ لَبَّيْكَ</Arab>
+        <div className="talbiyah-sub">Talbiyah · dibaca sejak niat ihram di miqat</div>
+        <div className="talbiyah-cta">Mulai dari miqat {Icon.chev}</div>
       </div>
       <div className="pad stack">
         <div className="quick">
