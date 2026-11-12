@@ -1,8 +1,8 @@
 // Service worker sederhana: cache aset agar aplikasi tetap bisa dibuka saat sinyal lemah.
-const CACHE = "umroh-sendiri-v6-tema";
+const CACHE = "umroh-sendiri-v7-ikon";
 
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(["/", "/index.html", "/manifest.json", "/icon.svg"])));
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(["/", "/index.html", "/manifest.json", "/icon-192.png", "/icon-512.png", "/apple-touch-icon.png", "/kabah.png"])));
   self.skipWaiting();
 });
 
