@@ -266,7 +266,7 @@ export function PilihanTema() {
   const [tema, setTema] = useTema();
   const opsi = [
     { id: "dark", nama: "Kiswah Hitam", cls: "gelap" },
-    { id: "light", nama: "Kiswah Gading", cls: "terang" },
+    { id: "light", nama: "Ihram Putih", cls: "terang" },
   ];
   return (
     <div className="tema-pilihan" role="radiogroup" aria-label="Tampilan aplikasi">

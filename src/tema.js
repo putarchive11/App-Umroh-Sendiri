@@ -1,10 +1,10 @@
-// Tema tampilan: "dark" (Kiswah Hitam) atau "light" (Kiswah Gading).
+// Tema tampilan: "dark" (Kiswah Hitam) atau "light" (Ihram Putih).
 // Pilihan disimpan di perangkat. Skrip kecil di index.html sudah menerapkannya
 // sebelum aplikasi dimuat, jadi layar tidak berkedip saat dibuka.
 import { useEffect, useState } from "react";
 
 const KUNCI = "umroh_tema";
-const WARNA_BAR = { dark: "#0A0907", light: "#F6F0E1" };
+const WARNA_BAR = { dark: "#0A0907", light: "#FAFAF8" };
 
 export function bacaTema() {
   try {

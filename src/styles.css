@@ -60,40 +60,77 @@
   --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23d6b05c' stroke-opacity='.06'%3E%3Cpath d='M24 4l20 20-20 20L4 24z'/%3E%3Cpath d='M24 14l10 10-10 10-10-10z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* ── Versi terang: "Kiswah Gading" — gading hangat, emas tua, aksen hitam kiswah ── */
+/* ── Versi terang: "Ihram Putih" — putih kain ihram, hitam tegas, tanpa hiasan berlebih ── */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f0e1;
-  --bg-2: #efe6d1;
-  --card: #fffdf7;
-  --card-2: #e7dcc3;
-  --text: #1f1910;
-  --muted: #7a6a4c;
-  --accent: #946d1f;
-  --accent-2: #b8923e;
-  --accent-light: rgba(184, 146, 62, .14);
-  --gold-hi: #84601a;
-  --gold-line: rgba(150, 112, 40, .28);
-  --gold-line-strong: rgba(150, 112, 40, .55);
-  --gold-grad-text: linear-gradient(135deg, #a37a28 0%, #7a5714 45%, #b88f3c 75%, #6d4d10 100%);
-  --green: #2c7a55;
-  --red: #c0473a;
-  --shadow-card: 0 16px 28px -20px rgba(110, 80, 25, .45), inset 0 1px 0 #fff;
-  --surface: linear-gradient(155deg, #fffdf8 0%, #f7efdd 100%);
-  --surface-deep: #fbf6ea;
-  --surface-raised: linear-gradient(150deg, #fffaf0, #efe4cc);
-  --shadow-deep: rgba(110, 80, 25, .4);
-  --nav-bg: linear-gradient(160deg, rgba(255, 253, 247, .96), rgba(244, 236, 217, .96));
-  --nav-fade: rgba(246, 240, 225, .94);
-  --header-bg: rgba(246, 240, 225, .9);
-  --latin: #4d402a;
-  --placeholder: #b5a789;
-  --warn-bg: linear-gradient(155deg, #fff4da, #f9e9c4);
-  --compass-bg: radial-gradient(circle, #fffaf0 52%, #ecdfc2 100%);
-  --glow: rgba(220, 184, 98, .28);
-  --sheen: linear-gradient(115deg, #f6f0e1 0%, #fbf7ed 30%, #f2e9d5 50%, #faf5ea 72%, #f4ecda 100%);
-  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cg fill='none' stroke='%23a8822f' stroke-opacity='.12'%3E%3Cpath d='M24 4l20 20-20 20L4 24z'/%3E%3Cpath d='M24 14l10 10-10 10-10-10z'/%3E%3C/g%3E%3C/svg%3E");
+  --bg: #fafaf8;
+  --bg-2: #f2f2ef;
+  --card: #ffffff;
+  --card-2: #ebebe6;
+  --text: #121212;
+  --muted: #85857f;
+  --accent: #121212;
+  --accent-2: #121212;
+  --accent-light: rgba(0, 0, 0, .06);
+  --gold-hi: #121212;
+  --gold-line: rgba(0, 0, 0, .08);
+  --gold-line-strong: rgba(0, 0, 0, .16);
+  --gold-grad: linear-gradient(160deg, #2e2e2e 0%, #0e0e0e 100%);
+  --gold-grad-text: linear-gradient(#121212, #121212);
+  --on-gold: #ffffff;
+  --green: #1f7a52;
+  --red: #c43d32;
+  --shadow-card: 0 18px 34px -22px rgba(0, 0, 0, .3), inset 0 1px 0 #fff;
+  --surface: #ffffff;
+  --surface-deep: #f5f5f2;
+  --surface-raised: linear-gradient(160deg, #ffffff, #f0f0ec);
+  --tile: linear-gradient(160deg, #ffffff 0%, #eceeef 100%);
+  --tile-fg: #121212;
+  --tile-border: #ffffff;
+  --shadow-deep: rgba(0, 0, 0, .28);
+  --nav-bg: rgba(255, 255, 255, .97);
+  --nav-fade: rgba(250, 250, 248, .94);
+  --header-bg: rgba(250, 250, 248, .9);
+  --latin: #3a3a37;
+  --placeholder: #b3b3ac;
+  --warn-bg: linear-gradient(155deg, #fffbf0, #fff3d6);
+  --compass-bg: radial-gradient(circle, #ffffff 52%, #ececea 100%);
+  --glow: rgba(255, 255, 255, 0);
+  --sheen: linear-gradient(#fafaf8, #fafaf8);
+  --pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M0.5 0V48M4.5 0V48M8.5 0V48M12.5 0V48M16.5 0V48M20.5 0V48M24.5 0V48M28.5 0V48M32.5 0V48M36.5 0V48M40.5 0V48M44.5 0V48' stroke='%23000' stroke-opacity='.022'/%3E%3Cpath d='M0 0.5H48M0 6.5H48M0 12.5H48M0 18.5H48M0 24.5H48M0 30.5H48M0 36.5H48M0 42.5H48' stroke='%23000' stroke-opacity='.016'/%3E%3C/svg%3E");
+  --font-display: "Instrument Serif", Georgia, serif;
 }
+/* Detail khusus Ihram Putih */
+:root[data-theme="light"] .arab { text-shadow: none; }
+:root[data-theme="light"] :is(.menu-icon, .quick .ic, .head-ico, .coming .e, .admin-ico) {
+  box-shadow: inset 0 1px 0 #fff, 0 14px 22px -10px rgba(0, 0, 0, .28), 0 3px 6px -2px rgba(0, 0, 0, .12);
+}
+:root[data-theme="light"] :is(.menu-icon, .quick .ic, .head-ico, .coming .e, .admin-ico)::after { display: none; }
+:root[data-theme="light"] :is(.menu-icon, .quick .ic, .head-ico, .coming .e, .admin-ico) .ph { filter: none; }
+:root[data-theme="light"] :is(.hero h1, .page-head h2, .subheader h2, .coming h3, .aktivasi h1) { font-weight: 400; letter-spacing: 0; }
+:root[data-theme="light"] .hero h1 { font-size: 36px; font-style: italic; line-height: 1.1; }
+:root[data-theme="light"] .page-head h2 { font-size: 27px; font-style: italic; }
+:root[data-theme="light"] .subheader h2 { font-size: 20px; }
+:root[data-theme="light"] .brand-name { font-size: clamp(13px, 3.8vw, 15px); letter-spacing: .04em; text-transform: none; }
+:root[data-theme="light"] .kiswah-band,
+:root[data-theme="light"] .page-head::after { background: rgba(0, 0, 0, .1); height: 1px; }
+:root[data-theme="light"] .doa-box { background: var(--surface-deep); box-shadow: none; }
+:root[data-theme="light"] .talbiyah {
+  background: radial-gradient(120% 90% at 100% 0%, #2b2b2b, #0d0d0d 60%);
+  border-color: #000;
+  box-shadow: 0 26px 40px -22px rgba(0, 0, 0, .6);
+}
+:root[data-theme="light"] .talbiyah .arab, :root[data-theme="light"] .talbiyah-cta { color: #ffffff; }
+:root[data-theme="light"] .talbiyah-sub { color: #a9a9a3; }
+:root[data-theme="light"] .btn { box-shadow: 0 10px 18px -10px rgba(0, 0, 0, .45); }
+:root[data-theme="light"] .progress > div { box-shadow: none; }
+:root[data-theme="light"] .bottom-nav button.on { background: #121212; color: #ffffff; }
+:root[data-theme="light"] .bottom-nav button.on svg { filter: none; }
+:root[data-theme="light"] .tema-btn { box-shadow: inset 0 1px 0 #fff, 0 10px 18px -10px rgba(0, 0, 0, .3); border-color: #e6e6e1; }
+:root[data-theme="light"] .tema-teks small { color: #85857f; }
+:root[data-theme="light"] .compass { border-color: #121212; }
+:root[data-theme="light"] .compass .needle { background: linear-gradient(#121212, transparent); box-shadow: none; }
+:root[data-theme="light"] .kode-baru { background: #ffffff; }
 html, body { transition: background-color .3s ease; }
 
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -477,7 +514,9 @@ a { color: inherit; }
 .tema-opsi.on { border-color: var(--accent-2); box-shadow: 0 0 0 3px var(--accent-light); }
 .tema-contoh { height: 54px; border-radius: 11px; position: relative; overflow: hidden; border: 1px solid rgba(184, 146, 62, .45); }
 .tema-contoh.gelap { background: linear-gradient(115deg, #0a0907, #1c1710 50%, #0b0a08); }
-.tema-contoh.terang { background: linear-gradient(115deg, #f6f0e1, #fffaf0 50%, #efe5cf); }
+.tema-contoh.terang { background: #fafaf8; }
+.tema-contoh.terang::before { background: linear-gradient(160deg, #fff, #eceeef); border-color: #fff; box-shadow: 0 6px 10px -4px rgba(0,0,0,.3); }
+.tema-contoh.terang::after { background: #121212; box-shadow: 0 10px 0 -1px #d8d8d3; }
 .tema-contoh::before { content: ""; position: absolute; left: 10px; top: 12px; width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(150deg, #2c251a, #0c0a07); border: 1px solid #b8923e; }
 .tema-contoh::after { content: ""; position: absolute; left: 44px; right: 12px; top: 18px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #dcb862, #a97f2c); box-shadow: 0 10px 0 -1px rgba(184, 146, 62, .45); }
 .tema-opsi span { display: flex; align-items: center; justify-content: space-between; }
