@@ -2,7 +2,7 @@
 // aksi: masuk | daftar | buat | cabut | pulihkan | reset
 import crypto from "node:crypto";
 import {
-  DAFTAR_KODE, MAKS_PERANGKAT, ambilKode, batasiPercobaan, bacaBody, kirim, kodeBaru, kunciKode,
+  DAFTAR_KODE, MAKS_PERANGKAT, ambilKode, batasiPercobaan, bacaBody, daftarkanKodeBaru, kirim, kunciKode,
   rapikanKode, redis, simpanKode, tampilKode,
 } from "./_lib.js";
 
@@ -50,14 +50,8 @@ export default async function handler(req, res) {
         perangkat: [],
         dicabut: false,
       };
-      for (let i = 0; i < 5; i++) {
-        const k = kodeBaru();
-        const jadi = await redis("SET", kunciKode(k), JSON.stringify(data), "NX");
-        if (jadi === "OK") {
-          await redis("SADD", DAFTAR_KODE, k);
-          return kirim(res, 200, { ok: true, kode: tampilKode(k), data });
-        }
-      }
+      const k = await daftarkanKodeBaru(data);
+      if (k) return kirim(res, 200, { ok: true, kode: tampilKode(k), data });
       return kirim(res, 500, { ok: false, pesan: "Gagal membuat kode, coba lagi." });
     }
 

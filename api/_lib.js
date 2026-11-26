@@ -42,10 +42,15 @@ export function tampilKode(k) {
   return k.length === 11 && k.startsWith("KUS") ? `KUS-${k.slice(3, 7)}-${k.slice(7)}` : k;
 }
 
-export function kodeBaru() {
-  let s = "KUS";
-  for (let i = 0; i < 8; i++) s += HURUF[crypto.randomInt(HURUF.length)];
+/** n huruf/angka acak yang tidak mudah tertukar saat dibaca. */
+export function acakHuruf(n) {
+  let s = "";
+  for (let i = 0; i < n; i++) s += HURUF[crypto.randomInt(HURUF.length)];
   return s;
+}
+
+export function kodeBaru() {
+  return "KUS" + acakHuruf(8);
 }
 
 /** Batasi percobaan per alamat IP agar kode tidak bisa ditebak beruntun. */
@@ -67,4 +72,27 @@ export async function ambilKode(k) {
 
 export async function simpanKode(k, data) {
   await redis("SET", kunciKode(k), JSON.stringify(data));
+}
+
+/**
+ * Membuat kode aktivasi baru yang unik lalu mendaftarkannya.
+ * Dipakai halaman admin (manual) dan checkout otomatis.
+ * Hasil: kode bentuk simpanan ("KUS7HQ29XM4"), atau null bila gagal.
+ */
+export async function daftarkanKodeBaru(data) {
+  for (let i = 0; i < 5; i++) {
+    const k = kodeBaru();
+    const jadi = await redis("SET", kunciKode(k), JSON.stringify(data), "NX");
+    if (jadi === "OK") {
+      await redis("SADD", DAFTAR_KODE, k);
+      return k;
+    }
+  }
+  return null;
+}
+
+/** Alamat IP pengunjung (Vercel mengisi x-forwarded-for dengan IP asli di urutan pertama). */
+export function ipKlien(req) {
+  const xf = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim();
+  return xf || String(req.headers["x-real-ip"] || "").trim();
 }
