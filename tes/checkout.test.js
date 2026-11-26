@@ -111,8 +111,15 @@ test("checkout: pembatas 8 percobaan per 10 menit per IP", async () => {
 
 test("sandbox: tertutup untuk umum, terbuka dengan KUNCI_UJI, event Meta ditahan", async () => {
   pasangEnv({ MIDTRANS_SERVER_KEY: KUNCI_SANDBOX, KUNCI_UJI: "rahasia-uji" });
-  assert.equal((await panggil(checkout, { body: pembeli })).statusCode, 403);
-  assert.equal((await panggil(checkout, { body: { ...pembeli, uji: "salah" } })).statusCode, 403);
+  const tanpa = await panggil(checkout, { body: pembeli });
+  assert.equal(tanpa.statusCode, 403);
+  assert.equal(tanpa.body.alasan, "sandbox");
+  const salah = await panggil(checkout, { body: { ...pembeli, uji: "salah" } });
+  assert.equal(salah.statusCode, 403);
+  assert.equal(salah.body.alasan, "kunci_uji_salah");
+  pasangEnv({ MIDTRANS_SERVER_KEY: KUNCI_SANDBOX, KUNCI_UJI: "" });
+  assert.equal((await panggil(checkout, { body: { ...pembeli, uji: "apa-saja" } })).body.alasan, "kunci_uji_kosong");
+  pasangEnv({ MIDTRANS_SERVER_KEY: KUNCI_SANDBOX, KUNCI_UJI: "rahasia-uji" });
   const r = await panggil(checkout, { body: { ...pembeli, uji: "rahasia-uji" } });
   assert.equal(r.statusCode, 200);
   assert.equal(r.body.uji, true);
