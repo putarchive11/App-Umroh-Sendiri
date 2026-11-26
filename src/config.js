@@ -2,7 +2,7 @@
 // Pengaturan yang paling sering diganti — ubah di sini saja.
 // ─────────────────────────────────────────────────────────────
 
-export const APP_NAME = "Kunci Umroh Sendiri";
+export const APP_NAME = "Kunci Umroh Mandiri";
 export const APP_BRAND = "PANDUAN UMROH MANDIRI";
 
 // Kurs default 1 SAR ke Rupiah (bisa diubah pengguna di aplikasi)

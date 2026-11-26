@@ -223,7 +223,7 @@ export function InstallBanner() {
     <div className="card install">
       <div style={{ fontSize: 26 }}>📲</div>
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 13, fontWeight: 700 }}>Pasang Umroh Sendiri</div>
+        <div style={{ fontSize: 13, fontWeight: 700 }}>Pasang Kunci Umroh Mandiri</div>
         <div className="xs muted">Buka cepat dari layar utama HP</div>
       </div>
       <button className="btn sm" onClick={async () => { evt.prompt(); await evt.userChoice; setEvt(null); }}>Pasang</button>

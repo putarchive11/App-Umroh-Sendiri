@@ -4,7 +4,7 @@ import { aktifkan } from "./aktivasi";
 import { PhIcon, TemaToggle } from "./ui";
 
 const waBantuan = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(
-  "Assalamu’alaikum, saya butuh bantuan aktivasi aplikasi Kunci Umroh Sendiri."
+  "Assalamu’alaikum, saya butuh bantuan aktivasi aplikasi Kunci Umroh Mandiri."
 )}`;
 
 // Tautan dari email / halaman sukses pembelian: https://<aplikasi>/?kode=KUS-XXXX-XXXX
@@ -161,7 +161,7 @@ export function AdminPage() {
   }
 
   function teksKirim(b) {
-    return `Assalamu’alaikum ${b.nama}, jazakallahu khairan atas pembeliannya.\n\nKode aktivasi aplikasi Kunci Umroh Sendiri:\n*${b.kode}*\n\nBuka ${location.origin} lalu masukkan kode di atas. Satu kode berlaku untuk ${maks} perangkat. Mohon tidak dibagikan ke orang lain.`;
+    return `Assalamu’alaikum ${b.nama}, jazakallahu khairan atas pembeliannya.\n\nKode aktivasi aplikasi Kunci Umroh Mandiri:\n*${b.kode}*\n\nBuka ${location.origin} lalu masukkan kode di atas. Satu kode berlaku untuk ${maks} perangkat. Mohon tidak dibagikan ke orang lain.`;
   }
 
   if (!masuk) {

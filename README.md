@@ -1,4 +1,4 @@
-# Umroh Sendiri
+# Kunci Umroh Mandiri
 
 Aplikasi web (PWA) panduan **umroh mandiri**: panduan ibadah lengkap dengan doa berharokat (khat Utsman Taha), checklist persiapan, kalkulator biaya, konversi SAR ↔ IDR, pencatat pengeluaran, arah kiblat, dan lainnya.
 
