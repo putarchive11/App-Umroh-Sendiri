@@ -39,14 +39,28 @@ export default async function handler(req, res) {
     if (!POLA_EMAIL.test(email)) return kirim(res, 400, { ok: false, alasan: "email", pesan: "Alamat email belum benar. Kode aktivasi dikirim ke email ini." });
     if (wa && (wa.length < 10 || wa.length > 15)) return kirim(res, 400, { ok: false, alasan: "wa", pesan: "Nomor WhatsApp belum benar." });
 
-    // Sandbox: pembayaran pura-pura tetapi kode asli, jadi hanya pemilik (pemegang KUNCI_UJI) yang boleh.
-    const uji = modeMidtrans() === "sandbox";
-    if (uji && !kunciUjiCocok(b.uji)) {
-      return kirim(res, 403, { ok: false, alasan: "sandbox", pesan: "Pembayaran otomatis belum aktif." });
-    }
-
     if (!(await batasiPercobaan(req, "checkout", 8, 600))) {
       return kirim(res, 429, { ok: false, alasan: "terlalu_sering", pesan: "Terlalu banyak percobaan. Coba lagi beberapa menit lagi." });
+    }
+
+    // Sandbox: pembayaran pura-pura tetapi kode asli, jadi hanya pemilik (pemegang KUNCI_UJI) yang boleh.
+    // Pengunjung tanpa kunci mendapat pesan umum; yang membawa kunci mendapat petunjuk agar mudah diperbaiki.
+    const uji = modeMidtrans() === "sandbox";
+    if (uji && !kunciUjiCocok(b.uji)) {
+      const diberi = String(b.uji || "");
+      const asli = (process.env.KUNCI_UJI || "").trim();
+      let pesan = "Pembayaran otomatis belum aktif.";
+      let alasan = "sandbox";
+      if (diberi && !asli) {
+        alasan = "kunci_uji_kosong";
+        pesan = "Mode uji: KUNCI_UJI belum terbaca di server. Simpan variabelnya di Vercel (Production), lalu Redeploy.";
+      } else if (diberi) {
+        alasan = "kunci_uji_salah";
+        pesan = "Mode uji: kata sandi di alamat (?uji=…) tidak sama dengan KUNCI_UJI di Vercel. Periksa huruf besar-kecil dan spasi.";
+        // Hanya panjangnya yang dicatat, bukan isinya.
+        console.warn(`checkout: kunci uji tidak cocok (diberi ${diberi.length} karakter, tersimpan ${asli.length} karakter)`);
+      }
+      return kirim(res, 403, { ok: false, alasan, pesan });
     }
 
     const id = idPesananBaru();
