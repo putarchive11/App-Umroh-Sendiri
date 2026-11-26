@@ -2,7 +2,7 @@
 // Pengaturan yang paling sering diganti — ubah di sini saja.
 // ─────────────────────────────────────────────────────────────
 
-export const APP_NAME = "Kunci Umroh Sendiri";
+export const APP_NAME = "Kunci Umroh Mandiri";
 export const APP_BRAND = "PANDUAN UMROH MANDIRI";
 
 // Kurs default 1 SAR ke Rupiah (bisa diubah pengguna di aplikasi)
@@ -10,6 +10,9 @@ export const DEFAULT_KURS = 4770; // kurs tengah ±Rp4.766 per 3 Nov 2026
 
 // Nomor WhatsApp admin (format internasional tanpa "+" dan tanpa 0 di depan).
 export const NOMOR_WA = "6287777995846";
+
+// Halaman pembelian (landing page). Tautan "Belum punya kode?" di layar aktivasi mengarah ke sini.
+export const URL_BELI = "https://www.umrohsendiri.biz.id/#paket";
 
 // Batas perangkat per kode (hanya untuk teks di layar; batas sebenarnya diatur di server: MAX_PERANGKAT).
 export const MAKS_PERANGKAT = 2;

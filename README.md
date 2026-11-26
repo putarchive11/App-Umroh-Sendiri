@@ -1,4 +1,4 @@
-# Umroh Sendiri
+# Kunci Umroh Mandiri
 
 Aplikasi web (PWA) panduan **umroh mandiri**: panduan ibadah lengkap dengan doa berharokat (khat Utsman Taha), checklist persiapan, kalkulator biaya, konversi SAR ↔ IDR, pencatat pengeluaran, arah kiblat, dan lainnya.
 
@@ -56,3 +56,34 @@ Variabel lingkungan di Vercel:
 | `KV_REST_API_URL`, `KV_REST_API_TOKEN` | Otomatis terisi saat Upstash Redis dihubungkan lewat menu Storage |
 | `ADMIN_PASSWORD` | Kata sandi halaman admin |
 | `MAX_PERANGKAT` | (opsional) batas perangkat per kode, bawaan 2 |
+
+## Checkout otomatis (Midtrans) + Meta Pixel/CAPI
+
+Pembeli membayar di halaman Midtrans, lalu kode aktivasi dibuat, ditampilkan, dan dikirim ke email tanpa campur tangan admin.
+
+```
+Landing page ── POST /api/checkout ──▶ pesanan + transaksi Midtrans ──▶ halaman pembayaran
+Midtrans ────── POST /api/midtrans ──▶ verifikasi ▶ kode aktivasi ▶ email (Resend) ▶ Purchase (Meta CAPI)
+Landing /terima-kasih/ ── POST /api/pesanan ──▶ status + kode (hanya untuk pemegang token pesanan)
+```
+
+| Alamat | Guna |
+|---|---|
+| `GET /api/toko` | Memberi tahu landing page apakah checkout otomatis siap. Belum siap = landing tetap QRIS manual. |
+| `POST /api/checkout` | Membuat pesanan dan transaksi Midtrans. |
+| `POST /api/midtrans` | Webhook Midtrans. Tanda tangan dicek, status ditanyakan ulang ke Midtrans, nominal dicocokkan. |
+| `POST /api/pesanan` | Status untuk halaman sukses; juga jaring pengaman bila webhook terlambat. |
+| `POST /api/jejak` | Pasangan sisi server untuk event Pixel (PageView, ViewContent, InitiateCheckout, Contact). |
+
+Daftar variabel lingkungan ada di `.env.example`. Semua bagian bersifat opsional dan saling lepas: tanpa kunci Midtrans checkout tidak aktif, tanpa Resend kode hanya tampil di layar, tanpa token Meta tidak ada event yang dikirim.
+
+**Mode sandbox aman:** dengan kunci `SB-…`, checkout tertutup untuk umum (pembayarannya pura-pura tetapi kodenya asli). Hanya yang membuka landing dengan `?uji=<KUNCI_UJI>` yang bisa mencoba.
+
+**Refund/chargeback** di Midtrans otomatis mencabut kode aktivasi.
+
+### Menguji
+
+```bash
+npm test          # 29 uji alur checkout dengan layanan tiruan
+npm run simulasi  # API sungguhan + Redis/Midtrans/Meta/Resend tiruan di http://localhost:8787
+```

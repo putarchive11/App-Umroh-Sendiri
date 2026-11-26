@@ -1,17 +1,38 @@
 import { useEffect, useState } from "react";
-import { APP_NAME, MAKS_PERANGKAT, NOMOR_WA } from "./config";
+import { APP_NAME, MAKS_PERANGKAT, NOMOR_WA, URL_BELI } from "./config";
 import { aktifkan } from "./aktivasi";
 import { PhIcon, TemaToggle } from "./ui";
 
-const waBeli = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(
-  "Assalamu’alaikum, saya ingin membeli akses aplikasi Kunci Umroh Sendiri."
+const waBantuan = `https://wa.me/${NOMOR_WA}?text=${encodeURIComponent(
+  "Assalamu’alaikum, saya butuh bantuan aktivasi aplikasi Kunci Umroh Mandiri."
 )}`;
+
+// Tautan dari email / halaman sukses pembelian: https://<aplikasi>/?kode=KUS-XXXX-XXXX
+function kodeDariTautan() {
+  try {
+    return (new URL(location.href).searchParams.get("kode") || "").toUpperCase().replace(/[^A-Z0-9-]/g, "").slice(0, 24);
+  } catch {
+    return "";
+  }
+}
+
+// Kode dibuang dari alamat setelah terbaca supaya tidak tertinggal di riwayat atau ikut terbagikan.
+function bersihkanTautan() {
+  try {
+    const url = new URL(location.href);
+    if (!url.searchParams.has("kode")) return;
+    url.searchParams.delete("kode");
+    history.replaceState(null, "", url.pathname + url.search + url.hash);
+  } catch { /* abaikan */ }
+}
 
 // ─── Layar aktivasi untuk pembeli ───
 export function AktivasiPage({ onAktif }) {
-  const [kode, setKode] = useState("");
+  const [kode, setKode] = useState(kodeDariTautan);
   const [proses, setProses] = useState(false);
   const [galat, setGalat] = useState("");
+
+  useEffect(bersihkanTautan, []);
 
   async function kirim(e) {
     e.preventDefault();
@@ -31,7 +52,7 @@ export function AktivasiPage({ onAktif }) {
         <img className="aktivasi-logo" src="/kabah.png" alt="" width="64" height="64" />
         <div className="aktivasi-merek">{APP_NAME}</div>
         <h1>Aktifkan Aplikasi</h1>
-        <p className="aktivasi-sub">Masukkan kode aktivasi yang Anda terima dari admin setelah pembelian.</p>
+        <p className="aktivasi-sub">Masukkan kode aktivasi yang Anda terima lewat email atau dari admin setelah pembelian.</p>
 
         <form className="card aktivasi-kartu" onSubmit={kirim}>
           <label htmlFor="kode" className="aktivasi-label">Kode aktivasi</label>
@@ -53,8 +74,11 @@ export function AktivasiPage({ onAktif }) {
           </button>
         </form>
 
-        <a className="aktivasi-beli" href={waBeli} target="_blank" rel="noreferrer">
-          <PhIcon name="ph-whatsapp-logo" /> Belum punya kode? Beli lewat WhatsApp
+        <a className="aktivasi-beli" href={URL_BELI} target="_blank" rel="noreferrer">
+          <PhIcon name="ph-shopping-bag-open" /> Belum punya kode? Beli di sini
+        </a>
+        <a className="aktivasi-beli" style={{ marginTop: 10 }} href={waBantuan} target="_blank" rel="noreferrer">
+          <PhIcon name="ph-whatsapp-logo" /> Butuh bantuan? Chat admin
         </a>
 
         <ul className="aktivasi-info">
@@ -137,7 +161,7 @@ export function AdminPage() {
   }
 
   function teksKirim(b) {
-    return `Assalamu’alaikum ${b.nama}, jazakallahu khairan atas pembeliannya.\n\nKode aktivasi aplikasi Kunci Umroh Sendiri:\n*${b.kode}*\n\nBuka ${location.origin} lalu masukkan kode di atas. Satu kode berlaku untuk ${maks} perangkat. Mohon tidak dibagikan ke orang lain.`;
+    return `Assalamu’alaikum ${b.nama}, jazakallahu khairan atas pembeliannya.\n\nKode aktivasi aplikasi Kunci Umroh Mandiri:\n*${b.kode}*\n\nBuka ${location.origin} lalu masukkan kode di atas. Satu kode berlaku untuk ${maks} perangkat. Mohon tidak dibagikan ke orang lain.`;
   }
 
   if (!masuk) {
